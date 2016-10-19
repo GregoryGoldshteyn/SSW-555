@@ -108,28 +108,10 @@ def readFile(url):
     b=''
     while s!="":     
         l=s.split(' ')
-        if l[0]=='0':
-            if (l[1][1]=='F' and flag2!=0):
-                f=l[2]
-                flag2=0
-            if(l[1][1]=='I' and flag1!=0):
-                i=l[2]
-                flag1=0
-                ptemp = Individual(l[1])
-                Individual.indilist.append(ptemp)
-                l=input.readline().split(' ')
-                ptemp.setfn(l[2])
-                ptemp.setln(l[3])
-                l=input.readline().split(' ')
-                ptemp.setgender(l[2])
-                l=input.readline().split(' ')
-                b=l[1]
-                l=input.readline().split(' ')
-                ptemp.setdob(l[2],l[3],l[4])
-        if (l[0]=='0' and len(l)>=3 and l[2]==i):
+        if (l[0]=='0' and len(l)>=3 and l[2]=='INDI\n'):
             ptemp = Individual(l[1])
             Individual.indilist.append(ptemp)
-        if(l[0]=='0' and len(l)>=3 and l[2]==f):
+        if(l[0]=='0' and len(l)>=3 and l[2]=='FAM\n'):
             ftemp = Family(l[1])
             Family.famlist.append(ftemp)
         if(l[0]=='1' and l[1]=='NAME'):
@@ -137,13 +119,13 @@ def readFile(url):
             ptemp.setln(l[3])
         if(l[0]=='1' and l[1]=='SEX'):
             ptemp.setgender(l[2])
-        if(l[0]=='1' and l[1]==b):
+        if(l[0]=='1' and l[1]=='BIRT\n'):
             l=input.readline().split(' ')
             ptemp.setdob(l[2],l[3],l[4])
         if(l[0]=='1' and l[1]=='DEAT'):
             l=input.readline().split(' ')
             ptemp.death(l[2],l[3],l[4])
-        if(l[0]=='1' and l[1]=='MARR'):
+        if(l[0]=='1' and l[1]=='MARR\n'):
             l=input.readline().split(' ')
             ftemp.setdom(l[2],l[3],l[4])
         if(l[0]=='1' and l[1]=='HUSB'):
